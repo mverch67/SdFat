@@ -202,7 +202,7 @@ class ostream : public virtual ios {
    * \return the stream
    */
   ostream &operator<<(const void *arg) {
-    putNum(reinterpret_cast<uint32_t>(arg));
+    putNum(reinterpret_cast<uintptr_t>(arg));
     return *this;
   }
   /** Output a string from flash using the Arduino F() macro.
