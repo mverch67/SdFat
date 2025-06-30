@@ -202,7 +202,13 @@ class ostream : public virtual ios {
    * \return the stream
    */
   ostream &operator<<(const void *arg) {
-    putNum(reinterpret_cast<uintptr_t>(arg));
+#if INTPTR_MAX == INT32_MAX
+    putNum((uint32_t)(void*)arg);
+#elif INTPTR_MAX == INT64_MAX
+    putNum((uint64_t)(void*)arg);
+#else
+#error "Environment not 32 or 64-bit."
+#endif
     return *this;
   }
   /** Output a string from flash using the Arduino F() macro.
